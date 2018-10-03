@@ -3,7 +3,13 @@
 
 module.exports = function(app, db) {
   app.post('/display', (req, res) => {
-    console.log(req.body);
-    res.send('hello');
-  })
-}
+    const note = { text: req.body.body, title:req.body.title };
+    db.collection('display').insert(display, (err, result) => {
+      if (err) {
+        res.send({'error': 'An error has occured'});
+      } else {
+        res.send(result.ops[0])
+      }
+    });
+  });
+};
